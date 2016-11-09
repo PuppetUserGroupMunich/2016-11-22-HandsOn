@@ -69,14 +69,46 @@ Vagrant.configure("2") do |config|
   # config.vm.box = "centos/7"
   # config.vm.box = "centos/6"
 
-  config.vm.define "client-centos", autostart: false do |centos|
-    centos.vm.box = "centos/7"
-    centos.vm.hostname = "client-centos.vagrant"
-    centos.vm.provider "virtualbox" do |vb|
+  config.vm.define "client-centos", autostart: false do |config|
+    config.vm.box = "centos/7"
+    config.vm.hostname = "client-centos.vagrant"
+    config.vm.provider "virtualbox" do |vb|
       vb.memory = "1024"
     end
 
-    centos.vm.provision "shell", inline: <<-SHELL
+    config.vm.provision "shell", inline: <<-SHELL
+    rpm -Uhv https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+    yum update -y
+    yum install -y git vim tree puppet-agent
+    sed -i '/^search/d' /etc/resolv.conf
+    SHELL
+
+  end
+
+  config.vm.define "rancher-server", autostart: false do |config|
+    config.vm.box = "centos/7"
+    config.vm.hostname = "rancher-server.vagrant"
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+
+    config.vm.provision "shell", inline: <<-SHELL
+    rpm -Uhv https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+    yum update -y
+    yum install -y git vim tree puppet-agent
+    sed -i '/^search/d' /etc/resolv.conf
+    SHELL
+
+  end
+
+  config.vm.define "rancher-host", autostart: false do |config|
+    config.vm.box = "centos/7"
+    config.vm.hostname = "rancher-host.vagrant"
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+
+    config.vm.provision "shell", inline: <<-SHELL
     rpm -Uhv https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
     yum update -y
     yum install -y git vim tree puppet-agent
