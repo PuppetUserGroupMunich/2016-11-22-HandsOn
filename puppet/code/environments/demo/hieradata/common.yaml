@@ -1,0 +1,10 @@
+---
+classes:
+ - ntp
+ - docker
+ - docker::compose
+
+docker::compose::version: '1.8.0'
+
+timezone::timezone: 'Europe/Berlin'
+
