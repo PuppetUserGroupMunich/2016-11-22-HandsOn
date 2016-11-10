@@ -1,10 +1,22 @@
 ---
 classes:
- - ntp
  - docker
  - docker::compose
+ - ntp
+ - puppet
 
 docker::compose::version: '1.8.0'
 
 timezone::timezone: 'Europe/Berlin'
+
+# Puppet: General
+puppet::show_diff: true
+# Puppet: Server
+puppet::server: false
+# Puppet: Agent
+puppet::agent: true
+puppet::runinterval: '600'
+# puppet::splaylimit: '600'
+puppet::splaylimit: "%{hiera('puppet::runinterval')}"
+puppet::puppetmaster: 'puppet'
 

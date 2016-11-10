@@ -74,4 +74,10 @@ docker-compose exec puppet bash -c 'cd /etc/puppetlabs/code/environments/product
 docker-compose exec puppet bash -c 'cd /etc/puppetlabs/code/environments/production && r10k puppetfile install'
 ```
 
+# Manage Certificates
 
+
+```
+docker-compose exec puppet puppet cert list --all
+docker-compose exec puppet puppet cert clean <hostname>
+```

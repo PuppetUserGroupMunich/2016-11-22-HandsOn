@@ -69,9 +69,9 @@ Vagrant.configure("2") do |config|
   # config.vm.box = "centos/7"
   # config.vm.box = "centos/6"
 
-  config.vm.define "client-centos", autostart: false do |config|
+  config.vm.define "demo-centos", autostart: false do |config|
     config.vm.box = "centos/7"
-    config.vm.hostname = "client-centos.vagrant"
+    config.vm.hostname = "demo-centos.vagrant"
     config.vm.provider "virtualbox" do |vb|
       vb.memory = "1024"
     end
@@ -80,6 +80,26 @@ Vagrant.configure("2") do |config|
     rpm -Uhv https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
     yum update -y
     yum install -y git vim tree puppet-agent
+    sed -i '/^search/d' /etc/resolv.conf
+    SHELL
+
+  end
+
+  config.vm.define "demo-ubuntu", autostart: false do |config|
+    config.vm.box = "ubuntu/xenial64"
+    config.vm.hostname = "demo-ubuntu.vagrant"
+    config.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+    end
+
+    config.vm.provision "shell", inline: <<-SHELL
+    source /etc/lsb-release
+    wget -O /tmp/puppetlabs-release-pc1-${DISTRIB_CODENAME}.deb http://apt.puppetlabs.com/puppetlabs-release-pc1-${DISTRIB_CODENAME}.deb
+    dpkg -i /tmp/puppetlabs-release-pc1-${DISTRIB_CODENAME}.deb
+    apt-get update
+    apt-get upgrade -y
+    apt-get install -y puppet-agent ruby
+    apt-get autoremove -y
     sed -i '/^search/d' /etc/resolv.conf
     SHELL
 
