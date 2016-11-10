@@ -1,0 +1,6 @@
+---
+classes:
+  - rancher
+
+rancher::registration_url: 'http://rancher-server.vagrant:8080/v1/scripts/0FE575280A42AF79CC22:1478764800000:s30dobvDauTUxOgYuKKorkcc'
+rancher::agent_address: "%{networking.interfaces.eth1.ip}"

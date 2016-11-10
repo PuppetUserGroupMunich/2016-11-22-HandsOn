@@ -1,5 +1,0 @@
----
-classes:
-  - rancher
-
-rancher::registration_url: 'http://172.28.128.6:8080/v1/scripts/DC786FC2EEEE2F160261:1478700000000:P7yT1IxRWAeadZvgYcTjjRdKzc'

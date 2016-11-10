@@ -101,19 +101,22 @@ Vagrant.configure("2") do |config|
 
   end
 
-  config.vm.define "rancher-host", autostart: false do |config|
-    config.vm.box = "centos/7"
-    config.vm.hostname = "rancher-host.vagrant"
-    config.vm.provider "virtualbox" do |vb|
-      vb.memory = "1024"
-    end
+  ('00'..'02').each do |i|
+    config.vm.define "rancher-host-#{i}", autostart: false do |config|
+      config.vm.box = "centos/7"
+      config.vm.hostname = "rancher-host-#{i}.vagrant"
+      config.vm.provider "virtualbox" do |vb|
+        vb.memory = "1024"
+      end
 
-    config.vm.provision "shell", inline: <<-SHELL
+      config.vm.provision "shell", inline: <<-SHELL
     rpm -Uhv https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
     yum update -y
     yum install -y git vim tree puppet-agent
     sed -i '/^search/d' /etc/resolv.conf
-    SHELL
+      SHELL
+
+    end
 
   end
 
