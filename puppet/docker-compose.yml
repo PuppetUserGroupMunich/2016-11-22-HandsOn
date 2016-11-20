@@ -11,6 +11,8 @@ services:
       - ./code:/etc/puppetlabs/code/
       - /etc/puppetlabs/puppet/ssl/
       - /opt/puppetlabs/server/data/puppetserver/
+    dns_search:
+      - .
     # In some cases unqualified hostnames can have the .local suffix
     # added, I've seen this under Docker of Mac Beta for instance.
     # Due to needing to access PuppetDB on same hostame as signed in the
@@ -30,6 +32,8 @@ services:
       - 5432
     volumes:
       - /var/lib/postgresql/data/
+    dns_search:
+      - .
 
   puppetdb:
     hostname: puppetdb
@@ -39,6 +43,8 @@ services:
       - 8081
     volumes:
       - /etc/puppetlabs/puppet/ssl/
+    dns_search:
+      - .
 
   puppetboard:
     image: puppet/puppetboard
@@ -50,3 +56,5 @@ services:
     ports:
       - 80
     read_only: true
+    dns_search:
+      - .
