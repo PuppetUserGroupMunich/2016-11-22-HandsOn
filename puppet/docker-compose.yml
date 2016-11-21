@@ -13,14 +13,6 @@ services:
       - /opt/puppetlabs/server/data/puppetserver/
     dns_search:
       - .
-    # In some cases unqualified hostnames can have the .local suffix
-    # added, I've seen this under Docker of Mac Beta for instance.
-    # Due to needing to access PuppetDB on same hostame as signed in the
-    # certificate you may need to uncommant the following lines
-    #environment:
-    #  - PUPPETDB_SERVER_URLS=https://puppetdb.local:8081
-    #links:
-    #  - puppetdb:puppetdb.local
 
   puppetdbpostgres:
     container_name: postgres
@@ -50,6 +42,8 @@ services:
     image: puppet/puppetboard
     ports:
       - 8000
+    dns_search:
+      - .
 
   puppetexplorer:
     image: puppet/puppetexplorer
