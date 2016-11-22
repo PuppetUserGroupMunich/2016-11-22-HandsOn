@@ -21,8 +21,8 @@ Once the initial setup is complete, ssh into the server:
 Once inside the vagrant host start the docker-compose environment:
 
 ```
-# cd /vagrant/pupppet
-# docker-compose up -d
+# cd /vagrant/puppet
+# /usr/local/bin/docker-compose up -d
 ```
 
 Wait a few minutes until the puppet stack is up and running. (You can follow the logs with `docker-compose logs -f`. You will see some errors, but those are expected during the bootstrap process.)
