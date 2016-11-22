@@ -41,17 +41,6 @@ Vagrant.configure("2") do |config|
       vb.memory = "4096"
     end
 
-    puppet.vm.provision "docker",
-      images: [
-        "puppet/puppetserver",
-        "puppet/puppetdb-postgres",
-        "puppet/puppetdb",
-        "puppet/puppetboard",
-        "puppet/puppetexplorer",
-        "puppet/puppet-agent-alpine",
-        "puppet/puppet-agent-ubuntu"
-    ]
-
     puppet.vm.provision "shell", inline: <<-SHELL
     curl -L "https://github.com/docker/compose/releases/download/1.8.1/docker-compose-$(uname -s)-$(uname -m)" > /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
@@ -62,6 +51,17 @@ Vagrant.configure("2") do |config|
     yum install -y git vim tree
     sed -i '/^search/d' /etc/resolv.conf
     SHELL
+
+    puppet.vm.provision "docker",
+      images: [
+        "puppet/puppetserver",
+        "puppet/puppetdb-postgres",
+        "puppet/puppetdb",
+        "puppet/puppetboard",
+        "puppet/puppetexplorer",
+        "puppet/puppet-agent-alpine",
+        "puppet/puppet-agent-ubuntu"
+    ]
 
   end
 
